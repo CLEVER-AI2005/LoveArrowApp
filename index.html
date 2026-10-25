@@ -8,19 +8,85 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <main class="card">
 
-    <main class="container">
-        <h1>Someone Special</h1>
+        <!-- SCREEN 1: SHOOT THE ARROW -->
+        <section id="startScreen" class="screen">
+            <h1>Someone Special</h1>
+            <p class="subtitle">I have something for you...</p>
 
-        <div class="love-scene">
-          <div id="heart">♥</div>
-<div id="arrow">➤</div>
-<div id="particles"></div>
-        </div>
+            <div class="love-scene">
+                <div id="heart">♥</div>
+                <button id="arrow" aria-label="Shoot the love arrow">➤</button>
+                <div id="particles"></div>
+            </div>
 
-        <h2 id="message">Ready to receive some love?</h2>
+            <h2 id="message">Ready to receive some love?</h2>
+            <button id="shootButton" class="main-button">
+                Shoot the Arrow!
+            </button>
+        </section>
 
-        <button id="shootButton">SHOOT THE ARROW!</button>
+        <!-- SCREEN 2: YES OR NO -->
+        <section id="questionScreen" class="screen hidden">
+            <h1>Hey, You!</h1>
+
+            <p class="question">
+                Would you like to go on a date with me?
+            </p>
+
+            <p class="subtitle">It would make me really happy!</p>
+
+            <!-- Teddy bear image -->
+            <div id="teddy">
+                <img src="teddy.png" alt="Cute teddy bear lying down">
+            </div>
+
+            <div class="big-heart">♥</div>
+
+            <div id="buttonArea">
+                <button id="yesButton" class="main-button">YES!</button>
+                <button id="noButton" class="no-button">NO</button>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: CHOOSE DATE AND TIME -->
+        <section id="dateScreen" class="screen hidden">
+            <div class="big-heart">♥</div>
+
+            <h1>It's a Date!</h1>
+            <p class="subtitle">Choose our special day.</p>
+
+            <label for="dateChoice">What day works for you?</label>
+            <select id="dateChoice">
+                <option value="tomorrow">Tomorrow</option>
+                <option value="threeDays">Three days from today</option>
+            </select>
+
+            <label for="timeChoice">What time would you prefer?</label>
+            <select id="timeChoice">
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="5:00 PM">5:00 PM</option>
+                <option value="7:00 PM">7:00 PM</option>
+            </select>
+
+            <button id="okButton" class="main-button">OK</button>
+        </section>
+
+        <!-- SCREEN 4: DATE CONFIRMATION -->
+        <section id="finalScreen" class="screen hidden">
+            <div class="bouquet">💐</div>
+
+            <h1>Yay! It's a Date!</h1>
+            <p id="finalDate"></p>
+            <p id="finalTime"></p>
+            <p class="love-message">I can't wait to see you!</p>
+
+            <div id="rainHearts"></div>
+        </section>
+
     </main>
 
     <script src="script.js"></script>
