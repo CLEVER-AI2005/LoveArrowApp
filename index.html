@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,9 +26,27 @@
             </button>
         </section>
 
-        <!-- SCREEN 2: YES OR NO -->
+        <!-- SCREEN 2: ENTER NAME -->
+        <section id="nameScreen" class="screen hidden">
+            <h1>Hello, Special One!</h1>
+            <p class="subtitle">Before we continue, what's your name?</p>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your name"
+                autocomplete="name"
+                required
+            >
+
+            <button id="continueButton" class="main-button">
+                Continue
+            </button>
+        </section>
+
+        <!-- SCREEN 3: YES OR NO -->
         <section id="questionScreen" class="screen hidden">
-            <h1>Hey, You!</h1>
+            <h1 id="greeting">Hey, You!</h1>
 
             <p class="question">
                 Would you like to go on a date with me?
@@ -50,7 +67,7 @@
             </div>
         </section>
 
-        <!-- SCREEN 3: CHOOSE DATE AND TIME -->
+        <!-- SCREEN 4: CHOOSE DATE AND TIME -->
         <section id="dateScreen" class="screen hidden">
             <div class="big-heart">♥</div>
 
@@ -75,7 +92,7 @@
             <button id="okButton" class="main-button">OK</button>
         </section>
 
-        <!-- SCREEN 4: DATE CONFIRMATION -->
+        <!-- SCREEN 5: DATE CONFIRMATION -->
         <section id="finalScreen" class="screen hidden">
             <div class="bouquet">💐</div>
 

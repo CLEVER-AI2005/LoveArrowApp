@@ -1,4 +1,3 @@
-
 const shootButton = document.getElementById("shootButton");
 const arrow = document.getElementById("arrow");
 const heart = document.getElementById("heart");
@@ -6,9 +5,14 @@ const particles = document.getElementById("particles");
 const message = document.getElementById("message");
 
 const startScreen = document.getElementById("startScreen");
+const nameScreen = document.getElementById("nameScreen");
 const questionScreen = document.getElementById("questionScreen");
 const dateScreen = document.getElementById("dateScreen");
 const finalScreen = document.getElementById("finalScreen");
+
+const nameInput = document.getElementById("nameInput");
+const continueButton = document.getElementById("continueButton");
+const greeting = document.getElementById("greeting");
 
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
@@ -24,12 +28,14 @@ const rainHearts = document.getElementById("rainHearts");
 
 let isShooting = false;
 let noClicks = 0;
+let visitorName = "";
 
 shootButton.addEventListener("click", function () {
     if (isShooting) return;
 
     isShooting = true;
     shootButton.disabled = true;
+
     arrow.classList.remove("shooting");
     heart.classList.remove("exploding");
     heart.style.display = "block";
@@ -54,19 +60,55 @@ shootButton.addEventListener("click", function () {
             const angle = Math.random() * Math.PI * 2;
             const distance = 70 + Math.random() * 170;
 
-            smallHeart.style.setProperty("--x", Math.cos(angle) * distance + "px");
-            smallHeart.style.setProperty("--y", Math.sin(angle) * distance + "px");
-            smallHeart.style.setProperty("--size", 16 + Math.random() * 25 + "px");
-            smallHeart.style.setProperty("--rotation", Math.random() * 360 + "deg");
+            smallHeart.style.setProperty(
+                "--x",
+                Math.cos(angle) * distance + "px"
+            );
+            smallHeart.style.setProperty(
+                "--y",
+                Math.sin(angle) * distance + "px"
+            );
+            smallHeart.style.setProperty(
+                "--size",
+                16 + Math.random() * 25 + "px"
+            );
+            smallHeart.style.setProperty(
+                "--rotation",
+                Math.random() * 360 + "deg"
+            );
 
             particles.appendChild(smallHeart);
         }
 
         setTimeout(function () {
             startScreen.classList.add("hidden");
-            questionScreen.classList.remove("hidden");
+            nameScreen.classList.remove("hidden");
+            nameInput.focus();
         }, 1100);
     }, 750);
+});
+
+continueButton.addEventListener("click", function () {
+    visitorName = nameInput.value.trim();
+
+    if (visitorName === "") {
+        nameInput.focus();
+        nameInput.setCustomValidity("Please enter your name.");
+        nameInput.reportValidity();
+        nameInput.setCustomValidity("");
+        return;
+    }
+
+    greeting.textContent = "Hey, " + visitorName + "!";
+
+    nameScreen.classList.add("hidden");
+    questionScreen.classList.remove("hidden");
+});
+
+nameInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        continueButton.click();
+    }
 });
 
 function moveNoButton() {
