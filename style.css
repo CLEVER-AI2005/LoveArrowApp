@@ -1,0 +1,183 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ffb6c1, #ffc3a0);
+    overflow: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    padding: 35px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid white;
+    border-radius: 25px;
+    box-shadow: 0 10px 35px rgba(150, 0, 50, 0.2);
+}
+
+h1 {
+    color: #a80042;
+    font-size: 35px;
+    margin-bottom: 25px;
+}
+
+.love-scene {
+    position: relative;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#heart {
+    position: relative;
+    z-index: 1;
+    color: #ff1744;
+    font-size: 150px;
+    text-shadow: 0 5px 20px rgba(180, 0, 40, 0.3);
+    transform-origin: center;
+    animation: heartbeat 1.2s infinite;
+}
+
+#heart.exploding {
+    animation: heartBoom 0.3s forwards;
+}
+
+#arrow {
+    position: absolute;
+    left: -70px;
+    top: 85px;
+    z-index: 3;
+    font-size: 55px;
+    color: #702020;
+    opacity: 0;
+}
+
+#arrow.shooting {
+    animation: shoot 0.75s ease-in forwards;
+}
+
+#particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.particle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: #ff1744;
+    font-size: var(--size, 25px);
+    line-height: 1;
+    transform: translate(-50%, -50%);
+    animation: heartBurst 1.3s ease-out forwards;
+    text-shadow: 0 0 8px rgba(255, 0, 80, 0.35);
+}
+
+#message {
+    color: #8b0035;
+    font-size: 22px;
+    margin: 20px 0;
+    min-height: 28px;
+}
+
+#shootButton {
+    background: #e6004c;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 16px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(180, 0, 50, 0.25);
+    transition: 0.3s;
+}
+
+#shootButton:hover {
+    background: #b8003d;
+    transform: scale(1.05);
+}
+
+#shootButton:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+@keyframes shoot {
+    0% {
+        left: -70px;
+        top: 85px;
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        left: calc(50% - 22px);
+        top: 85px;
+        opacity: 1;
+    }
+}
+
+@keyframes heartBoom {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    45% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes heartBurst {
+    0% {
+        transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(
+            calc(-50% + var(--x)),
+            calc(-50% + var(--y))
+        ) scale(1.2) rotate(var(--rotation));
+        opacity: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    #heart {
+        font-size: 125px;
+    }
+
+    #message {
+        font-size: 19px;
+    }
+}
