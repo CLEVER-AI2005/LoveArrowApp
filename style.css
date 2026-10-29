@@ -66,8 +66,13 @@ h2 {
 }
 
 @keyframes heartbeat {
-    0%, 100% { scale: 1; }
-    50% { scale: 1.15; }
+    0%, 100% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.15;
+    }
 }
 
 @keyframes explode {
@@ -122,6 +127,7 @@ h2 {
         transform: translate(-50%, -50%) scale(0.5);
         opacity: 1;
     }
+
     to {
         transform: translate(var(--x), var(--y))
                    rotate(var(--rotation)) scale(1.2);
@@ -130,7 +136,8 @@ h2 {
 }
 
 button,
-select {
+select,
+input {
     font-family: inherit;
 }
 
@@ -211,6 +218,7 @@ select {
     0%, 100% {
         transform: translateY(0) scale(1);
     }
+
     50% {
         transform: translateY(-4px) scale(1.02);
     }
@@ -241,15 +249,27 @@ label {
     font-weight: bold;
 }
 
-select {
+/* Date and time picker */
+select,
+input[type="date"],
+input[type="time"] {
+    display: block;
     width: 100%;
     max-width: 340px;
     padding: 13px;
+    margin: 0 auto;
     border: 1px solid #f2a1bf;
     border-radius: 12px;
     background: white;
     color: #8d1749;
     font-size: 16px;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus {
+    outline: none;
+    border-color: #ff2872;
+    box-shadow: 0 0 0 3px rgba(255, 40, 114, 0.12);
 }
 
 #okButton {
@@ -264,8 +284,13 @@ select {
 }
 
 @keyframes bloom {
-    from { transform: scale(0); }
-    to { transform: scale(1); }
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
 }
 
 .love-message {
