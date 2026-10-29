@@ -1,35 +1,60 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Love Arrow App</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <main class="card">
 
         <!-- SCREEN 1: SHOOT THE ARROW -->
         <section id="startScreen" class="screen">
+
             <h1>Someone Special</h1>
-            <p class="subtitle">I have something for you...</p>
+
+            <p class="subtitle">
+                I have something for you...
+            </p>
 
             <div class="love-scene">
+
                 <div id="heart">♥</div>
-                <button id="arrow" aria-label="Shoot the love arrow">➤</button>
+
+                <button id="arrow" aria-label="Shoot the love arrow">
+                    ➤
+                </button>
+
                 <div id="particles"></div>
+
             </div>
 
-            <h2 id="message">Ready to receive some love?</h2>
+            <h2 id="message">
+                Ready to receive some love?
+            </h2>
+
             <button id="shootButton" class="main-button">
                 Shoot the Arrow!
             </button>
+
         </section>
+
 
         <!-- SCREEN 2: ENTER NAME -->
         <section id="nameScreen" class="screen hidden">
+
             <h1>Hello, Special One!</h1>
-            <p class="subtitle">Before we continue, what's your name?</p>
+
+            <p class="subtitle">
+                Before we continue, what's your name?
+            </p>
 
             <input
                 type="text"
@@ -43,69 +68,118 @@
             <button id="continueButton" class="main-button">
                 Continue
             </button>
+
         </section>
+
 
         <!-- SCREEN 3: YES OR NO -->
         <section id="questionScreen" class="screen hidden">
-            <h1 id="greeting">Hey, You!</h1>
+
+            <h1 id="greeting">
+                Hey, You!
+            </h1>
 
             <p class="question">
                 Would you like to go on a date with me?
             </p>
 
-            <p class="subtitle">It would make me really happy!</p>
+            <p class="subtitle">
+                It would make me really happy!
+            </p>
 
             <div id="teddy">
-                <img src="teddy.png" alt="Cute teddy bear lying down">
+
+                <img
+                    src="teddy.png"
+                    alt="Cute teddy bear lying down"
+                >
+
             </div>
 
             <div class="big-heart">♥</div>
 
             <div id="buttonArea">
-                <button id="yesButton" class="main-button">YES!</button>
-                <button id="noButton" class="no-button">NO</button>
+
+                <button id="yesButton" class="main-button">
+                    YES!
+                </button>
+
+                <button id="noButton" class="no-button">
+                    NO
+                </button>
+
             </div>
+
         </section>
+
 
         <!-- SCREEN 4: CHOOSE DATE AND TIME -->
         <section id="dateScreen" class="screen hidden">
+
             <div class="big-heart">♥</div>
 
             <h1>It's a Date!</h1>
-            <p class="subtitle">Choose our special day.</p>
 
-            <label for="dateChoice">What day works for you?</label>
+            <p class="subtitle">
+                Choose our special day.
+            </p>
+
+            <!-- CALENDAR DATE PICKER -->
+            <label for="dateChoice">
+                What day works for you?
+            </label>
+
             <input
                 type="date"
                 id="dateChoice"
                 required
             >
 
-            <label for="timeChoice">What time would you prefer?</label>
+            <!-- CLOCK TIME PICKER -->
+            <label for="timeChoice">
+                What time would you prefer?
+            </label>
+
             <input
                 type="time"
                 id="timeChoice"
                 required
             >
 
-            <button id="okButton" class="main-button">OK</button>
+            <button id="okButton" class="main-button">
+                OK
+            </button>
+
         </section>
+
 
         <!-- SCREEN 5: DATE CONFIRMATION -->
         <section id="finalScreen" class="screen hidden">
-            <div class="bouquet">💐</div>
+
+            <div class="bouquet">
+                💐
+            </div>
 
             <h1>Yay! It's a Date!</h1>
+
             <p id="finalDate"></p>
+
             <p id="finalTime"></p>
-            <p class="love-message">I can't wait to see you!</p>
+
+            <p class="love-message">
+                I can't wait to see you!
+            </p>
 
             <div id="rainHearts"></div>
+
         </section>
 
     </main>
 
-    <script src="script.js"></script>
-</body>
-</html>
 
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
