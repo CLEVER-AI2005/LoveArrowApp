@@ -1,191 +1,178 @@
-const shootButton = document.getElementById("shootButton");
-const arrow = document.getElementById("arrow");
-const heart = document.getElementById("heart");
-const particles = document.getElementById("particles");
-const message = document.getElementById("message");
+// LOVE ARROW APP
 
+// SCREEN ELEMENTS
 const startScreen = document.getElementById("startScreen");
 const nameScreen = document.getElementById("nameScreen");
 const questionScreen = document.getElementById("questionScreen");
 const dateScreen = document.getElementById("dateScreen");
 const finalScreen = document.getElementById("finalScreen");
 
-const nameInput = document.getElementById("nameInput");
+// BUTTONS AND INPUTS
+const shootButton = document.getElementById("shootButton");
 const continueButton = document.getElementById("continueButton");
-const greeting = document.getElementById("greeting");
-
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
-const buttonArea = document.getElementById("buttonArea");
-
-const dateChoice = document.getElementById("dateChoice");
-const timeChoice = document.getElementById("timeChoice");
 const okButton = document.getElementById("okButton");
 
+const nameInput = document.getElementById("nameInput");
+const dateChoice = document.getElementById("dateChoice");
+const timeChoice = document.getElementById("timeChoice");
+
+const greeting = document.getElementById("greeting");
 const finalDate = document.getElementById("finalDate");
 const finalTime = document.getElementById("finalTime");
-const rainHearts = document.getElementById("rainHearts");
 
-let isShooting = false;
-let noClicks = 0;
 let visitorName = "";
 
+// SHOW ONE SCREEN AND HIDE THE OTHERS
+function showScreen(screenToShow) {
+    [startScreen, nameScreen, questionScreen, dateScreen, finalScreen]
+        .forEach(screen => screen.classList.add("hidden"));
+
+    screenToShow.classList.remove("hidden");
+}
+
+// SET TODAY AS THE EARLIEST AVAILABLE DATE
+function setMinimumDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    dateChoice.min = `${year}-${month}-${day}`;
+}
+
+// FORMAT DATE FOR DISPLAY
+function formatDate(dateString) {
+    const [year, month, day] = dateString.split("-").map(Number);
+
+    const selectedDate = new Date(year, month - 1, day);
+
+    return selectedDate.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+}
+
+// FORMAT TIME FOR DISPLAY
+function formatTime(timeString) {
+    const [hours, minutes] = timeString.split(":").map(Number);
+
+    const selectedTime = new Date();
+    selectedTime.setHours(hours, minutes, 0, 0);
+
+    return selectedTime.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit"
+    });
+}
+
+// START BUTTON
 shootButton.addEventListener("click", function () {
-    if (isShooting) return;
-
-    isShooting = true;
-    shootButton.disabled = true;
-
-    arrow.classList.remove("shooting");
-    heart.classList.remove("exploding");
-    heart.style.display = "block";
-    heart.style.animation = "";
-    particles.innerHTML = "";
-
-    void arrow.offsetWidth;
-
-    message.textContent = "Here comes the love...";
-    shootButton.textContent = "SHOOTING...";
-    arrow.classList.add("shooting");
-
-    setTimeout(function () {
-        heart.classList.add("exploding");
-        message.textContent = "BOOM!";
-
-        for (let i = 0; i < 40; i++) {
-            const smallHeart = document.createElement("span");
-            smallHeart.className = "particle";
-            smallHeart.textContent = Math.random() > 0.25 ? "♥" : "♡";
-
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 70 + Math.random() * 170;
-
-            smallHeart.style.setProperty(
-                "--x",
-                Math.cos(angle) * distance + "px"
-            );
-            smallHeart.style.setProperty(
-                "--y",
-                Math.sin(angle) * distance + "px"
-            );
-            smallHeart.style.setProperty(
-                "--size",
-                16 + Math.random() * 25 + "px"
-            );
-            smallHeart.style.setProperty(
-                "--rotation",
-                Math.random() * 360 + "deg"
-            );
-
-            particles.appendChild(smallHeart);
-        }
-
-        setTimeout(function () {
-            startScreen.classList.add("hidden");
-            nameScreen.classList.remove("hidden");
-            nameInput.focus();
-        }, 1100);
-    }, 750);
+    showScreen(nameScreen);
 });
 
+// CONTINUE BUTTON
 continueButton.addEventListener("click", function () {
     visitorName = nameInput.value.trim();
 
     if (visitorName === "") {
+        alert("Please enter your name first.");
         nameInput.focus();
-        nameInput.setCustomValidity("Please enter your name.");
-        nameInput.reportValidity();
-        nameInput.setCustomValidity("");
         return;
     }
 
     greeting.textContent = "Hey, " + visitorName + "!";
-
-    nameScreen.classList.add("hidden");
-    questionScreen.classList.remove("hidden");
+    showScreen(questionScreen);
 });
 
-nameInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        continueButton.click();
-    }
+// YES BUTTON
+yesButton.addEventListener("click", function () {
+    setMinimumDate();
+    showScreen(dateScreen);
 });
 
-function moveNoButton() {
-    noClicks++;
+// NO BUTTON
+noButton.addEventListener("click", function () {
+    alert("That's okay. Thank you for answering!");
+});
 
-    if (noClicks >= 5) {
-        noButton.style.display = "none";
+// OK BUTTON: SAVE DATE AND TIME
+okButton.addEventListener("click", async function () {
+    const selectedDate = dateChoice.value;
+    const selectedTime = timeChoice.value;
+
+    if (!visitorName) {
+        alert("Please enter your name first.");
+        showScreen(nameScreen);
         return;
     }
 
-    noButton.classList.add("moving");
-
-    const area = buttonArea.getBoundingClientRect();
-    const button = noButton.getBoundingClientRect();
-
-    const maxX = Math.max(0, area.width - button.width);
-    const maxY = Math.max(0, area.height - button.height);
-
-    const positions = [
-        { x: maxX / 2, y: 0 },
-        { x: maxX, y: maxY / 2 },
-        { x: 0, y: maxY / 2 },
-        { x: maxX / 2, y: maxY }
-    ];
-
-    const position = positions[(noClicks - 1) % positions.length];
-
-    noButton.style.left = position.x + "px";
-    noButton.style.top = position.y + "px";
-}
-
-noButton.addEventListener("click", moveNoButton);
-
-yesButton.addEventListener("click", function () {
-    questionScreen.classList.add("hidden");
-    dateScreen.classList.remove("hidden");
-});
-
-function getDateFromToday(daysToAdd) {
-    const date = new Date();
-    date.setDate(date.getDate() + daysToAdd);
-    return date;
-}
-
-okButton.addEventListener("click", function () {
-    const daysToAdd = dateChoice.value === "tomorrow" ? 1 : 3;
-    const chosenDate = getDateFromToday(daysToAdd);
-
-    const formattedDate = chosenDate.toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
-
-    finalDate.textContent = "Our date: " + formattedDate;
-    finalTime.textContent = "Time: " + timeChoice.value;
-
-    dateScreen.classList.add("hidden");
-    finalScreen.classList.remove("hidden");
-
-    createRainHearts();
-});
-
-function createRainHearts() {
-    rainHearts.innerHTML = "";
-
-    for (let i = 0; i < 55; i++) {
-        const fallingHeart = document.createElement("span");
-
-        fallingHeart.className = "rain-heart";
-        fallingHeart.textContent = Math.random() > 0.3 ? "♥" : "♡";
-        fallingHeart.style.left = Math.random() * 100 + "vw";
-        fallingHeart.style.animationDuration = 3 + Math.random() * 4 + "s";
-        fallingHeart.style.animationDelay = Math.random() * 3 + "s";
-        fallingHeart.style.fontSize = 12 + Math.random() * 25 + "px";
-
-        rainHearts.appendChild(fallingHeart);
+    if (!selectedDate || !selectedTime) {
+        alert("Please choose both a date and a time.");
+        return;
     }
-}
+
+    // Prevent selecting a past date.
+    setMinimumDate();
+
+    if (selectedDate < dateChoice.min) {
+        alert("Please choose today or a future date.");
+        return;
+    }
+
+    // Convert the chosen date to a readable format.
+    const readableDate = formatDate(selectedDate);
+    const readableTime = formatTime(selectedTime);
+
+    // Prepare the information for the PHP backend.
+    const formData = new URLSearchParams();
+    formData.append("visitor_name", visitorName);
+    formData.append("selected_date", readableDate);
+    formData.append("selected_time", readableTime);
+
+    okButton.disabled = true;
+    okButton.textContent = "Saving...";
+
+    try {
+        const response = await fetch("save_submission.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData.toString()
+        });
+
+        const result = await response.text();
+
+        if (!response.ok) {
+            throw new Error(result || "Unable to save submission.");
+        }
+
+        // Show the visitor's selected date and time.
+        finalDate.textContent = "Our date: " + readableDate;
+        finalTime.textContent = "Time: " + readableTime;
+
+        showScreen(finalScreen);
+
+        // Start the existing heart animation, if available.
+        if (typeof createRainHearts === "function") {
+            createRainHearts();
+        }
+
+    } catch (error) {
+        console.error("Submission error:", error);
+        alert(
+            "Sorry, your submission could not be saved. " +
+            "Please check your internet connection and try again."
+        );
+    } finally {
+        okButton.disabled = false;
+        okButton.textContent = "OK";
+    }
+});
+
+// SET INITIAL DATE RESTRICTION
+setMinimumDate();
