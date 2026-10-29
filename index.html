@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +37,7 @@
                 id="nameInput"
                 placeholder="Enter your name"
                 autocomplete="name"
+                maxlength="100"
                 required
             >
 
@@ -54,7 +56,6 @@
 
             <p class="subtitle">It would make me really happy!</p>
 
-            <!-- Teddy bear image -->
             <div id="teddy">
                 <img src="teddy.png" alt="Cute teddy bear lying down">
             </div>
@@ -75,19 +76,18 @@
             <p class="subtitle">Choose our special day.</p>
 
             <label for="dateChoice">What day works for you?</label>
-            <select id="dateChoice">
-                <option value="tomorrow">Tomorrow</option>
-                <option value="threeDays">Three days from today</option>
-            </select>
+            <input
+                type="date"
+                id="dateChoice"
+                required
+            >
 
             <label for="timeChoice">What time would you prefer?</label>
-            <select id="timeChoice">
-                <option value="10:00 AM">10:00 AM</option>
-                <option value="1:00 PM">1:00 PM</option>
-                <option value="3:00 PM">3:00 PM</option>
-                <option value="5:00 PM">5:00 PM</option>
-                <option value="7:00 PM">7:00 PM</option>
-            </select>
+            <input
+                type="time"
+                id="timeChoice"
+                required
+            >
 
             <button id="okButton" class="main-button">OK</button>
         </section>
@@ -109,3 +109,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+```
